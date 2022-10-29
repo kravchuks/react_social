@@ -1,23 +1,28 @@
 import s from './Dialogs.module.css';
-import DialogItem from './DialogItem/DialogsItem';
-import Message from './Message/Message';
+import DialogItem from './DialogItem/DialogsItem.tsx';
+import Message from './Message/Message.tsx';
 import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
-import *as yup from 'yup'
+import *as yup from 'yup';
+import { DialogType, MessageType } from '../../types/types';
 
-const Dialogs = (props) => {
+type PropsType = {
+    addMessage: (text: string) => void,
+    dialogsData: Array<DialogType>,
+    messageData: Array<MessageType>,
+}
 
-    let addMessageText = (text) => {
+const Dialogs: React.FC<PropsType> = (props) => {
+
+    let addMessageText = (text: string) => {
         props.addMessage(text);
     }
 
     let dialogsElements = props.dialogsData.map(el => (<DialogItem name={el.name} key={el.id} id={el.id} image={el.image} />))
 
     let messageElements = props.messageData.map(el => (<Message text={el.text} key={el.id} id={el.id} />))
-    if (!props.isAuth) {
-        return <Navigate to={'/login'} />
-    }
+    
     return (
         <div>
             <div className={s.warn}>(in process!)</div>

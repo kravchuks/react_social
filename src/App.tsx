@@ -4,18 +4,24 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { compose } from 'redux';
 import './App.css';
 import Preloader from './components/common/preloader/Preloader';
-import HeaderContainer from './components/Header/HeaderContainer';
+import HeaderContainer from './components/Header/HeaderContainer.tsx';
 import LoginForm from './components/Login/Login';
 import Navbar from './components/NavBar/NavBar';
 import { withRouter } from './components/Profile/ProfileContainer';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersContainer from './components/Users/UsersContainer.tsx';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import { withSuspense } from './HOC/withSuspense';
-import { initialiezeApp } from './redux/app-reducer';
-import store from './redux/redux-store';
-const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+import { initialiezeApp } from './redux/app-reducer.ts';
+import store from './redux/redux-store.ts';
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer.tsx'));
+import AppStateType from './redux/redux-store.ts'
 
-class App extends React.Component {
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = {
+  initialiezeApp: () => void
+}
+
+class App extends React.Component<MapPropsType & DispatchPropsType> {
 
   componentDidMount() {
     this.props.initialiezeApp();
@@ -51,13 +57,13 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
   initialized: state.app.initialized
 })
 
-let AppContiner = compose(connect(mapStateToProps, { initialiezeApp }),withRouter)(App);
+let AppContiner = compose<React.ComponentType>(connect(mapStateToProps, { initialiezeApp }),withRouter)(App);
 
-const SamuraiJSApp = (props) => {
+const SamuraiJSApp: React.FC = () => {
   return <React.StrictMode>
           <BrowserRouter>
             <Provider store={store}>

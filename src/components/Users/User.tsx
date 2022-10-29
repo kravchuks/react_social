@@ -1,6 +1,9 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
 import s from './Users.module.css';
 import userLogo from './../../assets/images/userLogo.png'
+import { UsersType } from './../../types/types' 
+
 
 let User = ({user, followingInProgres, unfollow, follow, ...props}) => {
     return (

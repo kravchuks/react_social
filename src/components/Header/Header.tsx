@@ -1,8 +1,15 @@
 import style from './Header.module.css';
 import { NavLink } from 'react-router-dom';
-import logo from './../../logo.svg'
+import logo from './../../logo.svg';
+import React from 'react';
 
-const Header = (props) => {
+type PropsType = {
+    isAuth: boolean,
+    login: string | null,
+    logout: () => void
+}
+
+const Header: React.FC<PropsType> = (props) => {
     return <header className={style.header}>
         <div className={style.container}>
             <NavLink to={'/profile'} className={style.logo}>

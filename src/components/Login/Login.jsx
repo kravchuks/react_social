@@ -4,7 +4,7 @@ import s from './Login.module.css'
 import { connect } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import * as yup from 'yup';
-import { login, getCaptchaUrl } from '../../redux/auth-reducer';
+import { login, getCaptchaUrl } from '../../redux/auth-reducer.ts';
 
 class LoginForm extends React.Component {
 
